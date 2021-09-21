@@ -5,10 +5,30 @@
     <title>Title</title>
 </head>
 <body>
+<h1>今日やること</h1>
 <ul>
+    <!--    todoの配列を渡す-->
+    <form action="/yaru">
+        <input type="text" name="context">
+        <input type="text" name="human">
+        <input type="submit" value="送信">
+    </form>
+
+    {{range .todo}}
     <li>
-        sample
+        <form action="/done">
+            <input type="hidden" name="id" id="id" value="{{.ID}}">
+            <input type="hidden" name="status" id="status" value="{{.Status}}">
+        {{.Human}}
+            {{if eq .Status 0}}
+            <input type="submit" value="Done">
+            {{else}}
+            <input type="submit" value="戻す">
+            {{end}}
+        </form>
+    <li>{{.CreatedAt}} {{.Content}}</li>
     </li>
+    {{end}}
 </ul>
 </body>
 </html>
